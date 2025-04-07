@@ -18,7 +18,10 @@ export default {
     port: 5174,
   },
   output: {
-    publicPath: "auto", // important
+    publicPath: "auto",
+  },
+  resolve: {
+    extensions: [".js", ".jsx"], // ✅ add this
   },
   module: {
     rules: [
@@ -34,10 +37,10 @@ export default {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: "app1",
+      name: "COURSE", // ✅ MUST MATCH remotes key
       filename: "remoteEntry.js",
       exposes: {
-        "./App": "./src/App.jsx", // <- this must match host import
+        "./App": "./src/App.jsx", // ✅ double check path
       },
       shared: {
         react: { singleton: true, eager: true },
