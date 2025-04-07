@@ -33,21 +33,25 @@ export default {
       },
     ],
   },
+  devServer: {
+    historyApiFallback: true,
+    port: 5173,
+    static: path.join(__dirname, "dist"),
+    hot: true,
+  },
   plugins: [
     new ModuleFederationPlugin({
       name: "container",
-
       remotes: {
-        app1: "app1@http://localhost:5174/remoteEntry.js",
-
-        
+        CoursePage: "COURSE@http://localhost:5174/remoteEntry.js",
+        HomePage: "HOME@http://localhost:5175/remoteEntry.js",
       },
-
       shared: {
-        react: { singleton: true, eager: true, requiredVersion: false },
-        "react-dom": { singleton: true, eager: true, requiredVersion: false },
+        react: { singleton: true, eager: true },
+        "react-dom": { singleton: true, eager: true },
       },
     }),
+
     new HtmlWebpackPlugin({
       template: "./index.html",
     }),
